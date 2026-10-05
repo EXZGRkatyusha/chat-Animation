@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>码道小助手</title>
 <style>
+  :root {
+    --green: #a5e87a;
+    --bubble-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
@@ -64,6 +69,17 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  .divider {
+    align-self: center;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.08);
+    color: #6f6f6f;
+    font-size: 12px;
+    line-height: 1.4;
+    animation: pop 0.25s ease-out;
+  }
+
   .avatar {
     flex: none;
     width: 36px;
@@ -77,9 +93,10 @@
   }
 
   .msg.left .avatar { background: #5b8ff9; }
-  .msg.right .avatar { background: #95ec69; color: #0a4d00; }
+  .msg.right .avatar { background: var(--green); color: #0a4d00; }
 
   .bubble {
+    position: relative;
     max-width: 70%;
     padding: 9px 12px;
     border-radius: 8px;
@@ -87,33 +104,65 @@
     line-height: 1.4;
     color: #000;
     word-break: break-word;
+    box-shadow: var(--bubble-shadow);
+  }
+
+  .bubble::after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
   }
 
   .bubble.white { background: #ffffff; }
-  .bubble.green { background: #95ec69; }
+  .bubble.white::after {
+    left: -6px;
+    border-right: 6px solid #ffffff;
+  }
+
+  .bubble.green { background: var(--green); }
+  .bubble.green::after {
+    right: -6px;
+    border-left: 6px solid var(--green);
+  }
 
   .bubble.typing {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     min-height: 36px;
-    padding: 0 14px;
+    padding: 0 12px;
   }
 
-  .bubble.typing span {
-    width: 7px;
-    height: 7px;
+  .bubble.typing .typing-text {
+    color: #52c41a;
+    font-size: 14px;
+  }
+
+  .bubble.typing .dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    height: 14px;
+  }
+
+  .bubble.typing .dots i {
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: #b6b6b6;
-    animation: typing-blink 1.2s infinite ease-in-out;
+    background: #52c41a;
+    animation: ellipsis 1.2s infinite ease-in-out;
   }
 
-  .bubble.typing span:nth-child(2) { animation-delay: 0.18s; }
-  .bubble.typing span:nth-child(3) { animation-delay: 0.36s; }
+  .bubble.typing .dots i:nth-child(2) { animation-delay: 0.2s; }
+  .bubble.typing .dots i:nth-child(3) { animation-delay: 0.4s; }
 
-  @keyframes typing-blink {
-    0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
-    30%           { opacity: 1;    transform: translateY(-4px); }
+  @keyframes ellipsis {
+    0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+    30%           { opacity: 1;    transform: translateY(-3px); }
   }
 </style>
 </head>
@@ -128,11 +177,13 @@
   var chat = document.getElementById('chat');
 
   var script = [
+    { type: 'time', text: '上午 10:23' },
     { from: 'them', text: '在吗？' },
     { from: 'me',   text: '在的怎么啦' },
     { from: 'them', text: '我想用 AI 做一个无限动画，听说可以用 git 边做边回退？' },
     { from: 'me',   text: '对思路很简单' },
     { from: 'me',   text: '满意就 commit，不满意就 checkout / reset 回退再改' },
+    { type: 'time', text: '上午 10:25' },
     { from: 'them', text: '懂了那我先去试试' },
     { from: 'me',   text: '👍 有不懂的随时问' }
   ];
@@ -165,6 +216,14 @@
     return row;
   }
 
+  function addDivider(text) {
+    var divider = document.createElement('div');
+    divider.className = 'divider';
+    divider.textContent = text;
+    chat.appendChild(divider);
+    scrollToBottom();
+  }
+
   function addMessage(from, text) {
     var bubble = document.createElement('div');
     bubble.className = 'bubble ' + (from === 'them' ? 'white' : 'green');
@@ -176,9 +235,19 @@
   function showTyping() {
     var bubble = document.createElement('div');
     bubble.className = 'bubble white typing';
+
+    var label = document.createElement('span');
+    label.className = 'typing-text';
+    label.textContent = '对方正在输入';
+    bubble.appendChild(label);
+
+    var dots = document.createElement('span');
+    dots.className = 'dots';
     for (var i = 0; i < 3; i++) {
-      bubble.appendChild(document.createElement('span'));
+      dots.appendChild(document.createElement('i'));
     }
+    bubble.appendChild(dots);
+
     var row = makeRow('them', bubble);
     chat.appendChild(row);
     scrollToBottom();
@@ -192,9 +261,15 @@
     for (var i = 0; i < script.length; i++) {
       var step = script[i];
 
+      if (step.type === 'time') {
+        addDivider(step.text);
+        await sleep(700);
+        continue;
+      }
+
       if (step.from === 'them') {
         var typing = showTyping();
-        await sleep(1300);
+        await sleep(1500);
         typing.remove();
       } else {
         await sleep(450);
