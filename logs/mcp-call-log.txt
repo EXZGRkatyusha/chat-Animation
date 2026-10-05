@@ -1,0 +1,45 @@
+======== GitCode MCP 调用日志 ========
+时间: 2026-10-05T08:48:37.616Z
+server: D:\code_art\gitcode-mcp\server.py
+owner/repo: katyusha-/chat-Animation
+
+>>> initialize
+    serverInfo: {"name":"gitcode","version":"1.30.0"}
+
+>>> tools/call gitcode_get_user
+    args: {}
+[server stderr] Processing request of type CallToolRequest
+    result: { "avatar_url": "https://cdn-static.gitcode.com/doc/avatar-2.png", "followers_url": "https://api.gitcode.com/api/v5/users/katyusha-/followers", "html_url": "https://gitcode.com/katyusha-", "id": "6ab7474edb289859c52149af", "login": "katyusha-", "name": "katyusha-", "type": "User", "url": "https://api.gitcode.com/api/v5/user/katyusha-", "bio": "", "blog": "", "company": "", "created_at": "2026-09-26T12:17:18+08:00", "email": "ardHTtsomFnFIUmv.katyusha-@noreply.gitcode.com", "followers": 0, "following": 0, "updated_at": "2026-09-26T12:17:19+08:00", "top_languages": [], "location": "", "external_uid": 12742254, "github_account": "", "website": "", "description": "" }
+
+>>> tools/call gitcode_get_repo
+    args: {"owner":"katyusha-","repo":"chat-Animation"}
+[server stderr] Processing request of type CallToolRequest
+    result: { "id": 11013864, "full_name": "katyusha-/chat-Animation", "human_name": "katyusha- / chat-Animation", "url": "https://api.gitcode.com/api/v5/repos/katyusha-/chat-Animation", "namespace": { "id": 14703129, "name": "katyusha-", "path": "katyusha-", "html_url": "https://gitcode.com/katyusha-" }, "path": "chat-Animation", "name": "chat-Animation", "status": "开始", "ssh_url_to_repo": "git@gitcode.com:katyusha-/chat-Animation.git", "http_url_to_repo": "https://gitcode.com/katyusha-/chat-Animation.git", "web_url": "https://gitcode.com/katyusha-/chat-Animation", "readme_url": "https://gitcode.com/katyusha-/chat-Animation/blob/main/README.md", "created_at": "2026-10-05T16:16:40.399+08:00", "updated_at": "2026-10-05T16:16:40.399+08:00", "creator": { "id": "6ab7474edb289859c52149af", "arts_id": "12742254", "username": "katyusha-", "nickname": "katyusha-" }, "members": [ "katyusha-" ], "forks_count": 0, "stargazers_count": 0, "project_labels": [], "license": "", "internal": false, "open_issues_count": 0, "watchers_count": 0, "assignees_number": 0, "enterprise": { "id": 14703129, "path": "katyusha-", "html_url": "https://gitcode.com/katyusha-", "type": "user" }, "default_branch": "main", "fork": false, "pushed_at": "2026-10-05T16:24:44.734+08:00", "owner": { "id": "12742254", "login": "katyusha-", "name": "katyusha-", "html_url": "https://gitcode.com/katyus
+
+>>> tools/call gitcode_list_branches
+    args: {"owner":"katyusha-","repo":"chat-Animation"}
+[server stderr] Processing request of type CallToolRequest
+    result: { "name": "main", "description": "", "commit": { "commit": { "author": { "name": "wwz", "date": "2026-10-05T16:26:09+08:00", "email": "wwz@local" }, "committer": { "name": "wwz", "date": "2026-10-05T16:26:09+08:00", "email": "wwz@local" }, "message": "Merge branch 'feat-neon' into main (采用霓虹配色)" }, "sha": "693f1b43eda58f222b499bf57ec5473c2ff33e28", "url": "https://gitcode.com/api/v5/repos/katyusha-/chat-Animation/commits/693f1b43eda58f222b499bf57ec5473c2ff33e28" }, "default_branch": true, "protected": false } { "name": "feat-neon", "description": "", "commit": { "commit": { "author": { "name": "wwz", "date": "2026-10-05T16:20:58+08:00", "email": "wwz@local" }, "committer": { "name": "wwz", "date": "2026-10-05T16:20:58+08:00", "email": "wwz@local" }, "message": "feat: 霓虹渐变气泡与赛博朋克标题栏" }, "sha": "bac31b17d6b4b772253ec018e4523074f05d1885", "url": "https://gitcode.com/api/v5/repos/katyusha-/chat-Animation/commits/bac31b17d6b4b772253ec018e4523074f05d1885" }, "default_branch": false, "protected": false }
+
+>>> tools/call gitcode_list_commits
+    args: {"owner":"katyusha-","repo":"chat-Animation"}
+[server stderr] Processing request of type CallToolRequest
+    result: { "url": "https://api.gitcode.com/api/v5/repos/katyusha-/chat-Animation/commits/693f1b43eda58f222b499bf57ec5473c2ff33e28", "sha": "693f1b43eda58f222b499bf57ec5473c2ff33e28", "html_url": "https://gitcode.com/katyusha-/chat-Animation/commits/detail/693f1b43eda58f222b499bf57ec5473c2ff33e28", "comments_url": "https://api.gitcode.com/api/v5/repos/katyusha-/chat-Animation/commits/693f1b43eda58f222b499bf57ec5473c2ff33e28/comments", "commit": { "author": { "date": "2026-10-05T16:26:09+08:00", "email": "wwz@local" }, "committer": { "date": "2026-10-05T16:26:09+08:00", "email": "wwz@local" }, "tree": { "sha": "f7adf49760acfb35e81ef103f8d2dc37e21bea0c", "url": "https://api.gitcode.com/api/v5/repos/katyusha-/chat-Animation/git/trees/f7adf49760acfb35e81ef103f8d2dc37e21bea0c" }, "message": "Merge branch 'feat-neon' into main (采用霓虹配色)" }, "author": { "email": "wwz@local", "type": "User" }, "committer": { "date": "2026-10-05T16:26:09+08:00", "email": "wwz@local", "type": "User" }, "parents": [ { "sha": "4a3f0895ee393c0f2bae875b06a657f21788fc23", "url": "https://api.gitcode.com/api/v5/repos/katyusha-/chat-Animation/commits/4a3f0895ee393c0f2bae875b06a657f21788fc23" }, { "sha": "bac31b17d6b4b772253ec018e4523074f05d1885", "url": "https://api.gitcode.com/api/v5/repos/katyusha-/chat-Animation/commits/bac31b17d6b4b772253ec018e4523074f05d1885" } ], "co
+
+>>> tools/call gitcode_create_branch
+    args: {"owner":"katyusha-","repo":"chat-Animation","refs":"main","branch_name":"feat/mcp-evidence-1791190120496"}
+[server stderr] Processing request of type CallToolRequest
+    result: { "name": "feat/mcp-evidence-1791190120496", "description": "", "commit": { "commit": { "author": { "name": "wwz", "date": "2026-10-05T16:26:09+08:00", "email": "wwz@local" }, "committer": { "name": "wwz", "date": "2026-10-05T16:26:09+08:00", "email": "wwz@local" }, "message": "Merge branch 'feat-neon' into main (采用霓虹配色)" }, "sha": "693f1b43eda58f222b499bf57ec5473c2ff33e28", "url": "https://gitcode.com/api/v5/repos/katyusha-/chat-Animation/commits/693f1b43eda58f222b499bf57ec5473c2ff33e28" }, "default_branch": false, "protected": false }
+
+>>> tools/call gitcode_create_file
+    args: {"owner":"katyusha-","repo":"chat-Animation","path":"docs/mcp-demo-note.md","content":"IyDpgJrov4cgR2l0Q29kZSBNQ1Ag5o+Q5Lqk55qE5ryU56S65paH5Lu2CgrmnKzmlofku7bnlLEgc2NyaXB0cy9tY3AtZGVtby5tanMg57uPIEdpdENvZGUgTUNQIOW3peWFtyBgZ2l0Y29kZV9jcmVhdGVfZmlsZWAg5Yib5bu644CCCg==","message":"docs: 通过 GitCode MCP 提交演示文件","branch":"feat/mcp-evidence-1791190120496"}
+[server stderr] Processing request of type CallToolRequest
+    result: { "commit": { "sha": "86b2a1328f2328a9b9680bab008a748c324c85be", "author": { "name": "katyusha-", "email": "ardHTtsomFnFIUmv.katyusha-@noreply.gitcode.com", "date": "2026-10-05T16:48:42+08:00" }, "committer": { "name": "katyusha-", "email": "ardHTtsomFnFIUmv.katyusha-@noreply.gitcode.com", "date": "2026-10-05T16:48:42+08:00" }, "message": "", "parents": [ { "sha": "693f1b43eda58f222b499bf57ec5473c2ff33e28" } ] } }
+
+>>> tools/call gitcode_create_pull
+    args: {"owner":"katyusha-","repo":"chat-Animation","title":"演示：通过 GitCode MCP 建立合并请求","head":"feat/mcp-evidence-1791190120496","base":"main","body":"由 scripts/mcp-demo.mjs 自动创建，用于证明 GitCode MCP 协作流程（开分支 → 提交 → PR）。"}
+[server stderr] Processing request of type CallToolRequest
+    result: { "id": 9298199, "iid": 2, "project_id": 11013864, "title": "演示：通过 GitCode MCP 建立合并请求", "description": "由 scripts/mcp-demo.mjs 自动创建，用于证明 GitCode MCP 协作流程（开分支 → 提交 → PR）。", "state": "opened", "created_at": "2026-10-05T16:48:44+08:00", "updated_at": "2026-10-05T16:48:44+08:00", "target_branch": "main", "source_branch": "feat/mcp-evidence-1791190120496", "user_notes_count": 0, "upvotes": 0, "downvotes": 0, "author": { "id": 12742254, "name": "katyusha-", "username": "katyusha-", "iam_id": "dkQC0rbDUUn0Hsy64kpHFHxsxjIyqGw0", "state": "active", "email": "ardHTtsomFnFIUmv.katyusha-@noreply.gitcode.com", "name_cn": "", "web_url": "https://gitcode.com/katyusha-", "nick_name": "katyusha-" }, "source_project_id": 11013864, "target_project_id": 11013864, "labels": [], "work_in_progress": false, "merge_when_pipeline_succeeds": false, "merge_status": "unchecked", "sha": "86b2a1328f2328a9b9680bab008a748c324c85be", "should_remove_source_branch": false, "force_remove_source_branch": false, "web_url": "https://gitcode.com/katyusha-/chat-Animation/merge_requests/2", "time_stats": { "total_time_spent": 0 }, "squash": false, "merge_request_type": "MergeRequest", "has_pre_merge_ref": false, "review_mode": "approval", "is_source_branch_exist": true, "approval_merge_request_reviewers": [], "approval_merge_request_approvers": [], "source_project": { "id": 11013864, "name": "chat-Anim
+
+演示分支: feat/mcp-evidence-1791190120496
+======== 调用完成 ========
