@@ -54,9 +54,15 @@
     display: flex;
     align-items: flex-start;
     gap: 8px;
+    animation: pop 0.25s ease-out;
   }
 
   .msg.right { justify-content: flex-end; }
+
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
   .avatar {
     flex: none;
@@ -85,21 +91,125 @@
 
   .bubble.white { background: #ffffff; }
   .bubble.green { background: #95ec69; }
+
+  .bubble.typing {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 36px;
+    padding: 0 14px;
+  }
+
+  .bubble.typing span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #b6b6b6;
+    animation: typing-blink 1.2s infinite ease-in-out;
+  }
+
+  .bubble.typing span:nth-child(2) { animation-delay: 0.18s; }
+  .bubble.typing span:nth-child(3) { animation-delay: 0.36s; }
+
+  @keyframes typing-blink {
+    0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+    30%           { opacity: 1;    transform: translateY(-4px); }
+  }
 </style>
 </head>
 <body>
   <div class="phone">
     <header class="navbar">码道小助手</header>
-    <main class="chat">
-      <div class="msg left">
-        <div class="avatar">对</div>
-        <div class="bubble white">在吗？</div>
-      </div>
-      <div class="msg right">
-        <div class="bubble green">在的，怎么啦？</div>
-        <div class="avatar">我</div>
-      </div>
-    </main>
+    <main class="chat" id="chat"></main>
   </div>
+
+<script>
+(function () {
+  var chat = document.getElementById('chat');
+
+  var script = [
+    { from: 'them', text: '在吗？' },
+    { from: 'me',   text: '在的怎么啦' },
+    { from: 'them', text: '我想用 AI 做一个无限动画，听说可以用 git 边做边回退？' },
+    { from: 'me',   text: '对思路很简单' },
+    { from: 'me',   text: '满意就 commit，不满意就 checkout / reset 回退再改' },
+    { from: 'them', text: '懂了那我先去试试' },
+    { from: 'me',   text: '👍 有不懂的随时问' }
+  ];
+
+  var sleep = function (ms) {
+    return new Promise(function (resolve) { setTimeout(resolve, ms); });
+  };
+
+  function scrollToBottom() {
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function makeAvatar(from) {
+    var avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = from === 'them' ? '对' : '我';
+    return avatar;
+  }
+
+  function makeRow(from, inner) {
+    var row = document.createElement('div');
+    row.className = 'msg ' + (from === 'them' ? 'left' : 'right');
+    if (from === 'them') {
+      row.appendChild(makeAvatar(from));
+      row.appendChild(inner);
+    } else {
+      row.appendChild(inner);
+      row.appendChild(makeAvatar(from));
+    }
+    return row;
+  }
+
+  function addMessage(from, text) {
+    var bubble = document.createElement('div');
+    bubble.className = 'bubble ' + (from === 'them' ? 'white' : 'green');
+    bubble.textContent = text;
+    chat.appendChild(makeRow(from, bubble));
+    scrollToBottom();
+  }
+
+  function showTyping() {
+    var bubble = document.createElement('div');
+    bubble.className = 'bubble white typing';
+    for (var i = 0; i < 3; i++) {
+      bubble.appendChild(document.createElement('span'));
+    }
+    var row = makeRow('them', bubble);
+    chat.appendChild(row);
+    scrollToBottom();
+    return row;
+  }
+
+  async function play() {
+    chat.innerHTML = '';
+    await sleep(600);
+
+    for (var i = 0; i < script.length; i++) {
+      var step = script[i];
+
+      if (step.from === 'them') {
+        var typing = showTyping();
+        await sleep(1300);
+        typing.remove();
+      } else {
+        await sleep(450);
+      }
+
+      addMessage(step.from, step.text);
+      await sleep(950);
+    }
+
+    await sleep(2200);
+    play();
+  }
+
+  play();
+})();
+</script>
 </body>
 </html>
