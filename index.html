@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>码道小助手</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f0f0f0;
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  .phone {
+    width: 375px;
+    height: 720px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #ededed;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .navbar {
+    flex: none;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #000;
+    background: #ededed;
+    border-bottom: 1px solid #d9d9d9;
+  }
+
+  .chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px;
+    overflow-y: auto;
+    background: #ededed;
+  }
+
+  .msg {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .msg.right { justify-content: flex-end; }
+
+  .avatar {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .msg.left .avatar { background: #5b8ff9; }
+  .msg.right .avatar { background: #95ec69; color: #0a4d00; }
+
+  .bubble {
+    max-width: 70%;
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #000;
+    word-break: break-word;
+  }
+
+  .bubble.white { background: #ffffff; }
+  .bubble.green { background: #95ec69; }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <header class="navbar">码道小助手</header>
+    <main class="chat">
+      <div class="msg left">
+        <div class="avatar">对</div>
+        <div class="bubble white">在吗？</div>
+      </div>
+      <div class="msg right">
+        <div class="bubble green">在的，怎么啦？</div>
+        <div class="avatar">我</div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
